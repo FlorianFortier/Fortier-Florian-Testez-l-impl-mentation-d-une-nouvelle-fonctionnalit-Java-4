@@ -1,0 +1,346 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Cannot create worker GC thread. Out of system resources.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (workerManager.hpp:70), pid=7316, tid=7332
+#
+# JRE version:  (11.0.8+10) (build )
+# Java VM: OpenJDK 64-Bit Server VM (11.0.8+10-LTS, mixed mode, sharing, tiered, compressed oops, g1 gc, linux-amd64)
+# Core dump will be written. Default location: Core dumps may be processed with "/usr/share/apport/apport -p%p -s%s -c%c -d%d -P%P -u%u -g%g -- %E" (or dumping to /home/codio/workspace/parkingsystem/core.7316)
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Dclassworlds.conf=/usr/share/maven/bin/m2.conf -Dmaven.home=/usr/share/maven -Dlibrary.jansi.path=/usr/share/maven/lib/jansi-native -Dmaven.multiModuleProjectDirectory= org.codehaus.plexus.classworlds.launcher.Launcher test
+
+Host: Intel(R) Xeon(R) Platinum 8175M CPU @ 2.50GHz, 4 cores, 15G, Ubuntu 18.04.6 LTS
+Time: Mon Apr 10 12:18:27 2023 UTC elapsed time: 0 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007fd8b8016800):  JavaThread "Unknown thread" [_thread_in_vm, id=7332, stack(0x00007fd8c03e4000,0x00007fd8c04e5000)]
+
+Stack: [0x00007fd8c03e4000,0x00007fd8c04e5000],  sp=0x00007fd8c04e3630,  free space=1021k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0xe19ef0]  VMError::report_and_die(int, char const*, char const*, __va_list_tag*, Thread*, unsigned char*, void*, void*, char const*, int, unsigned long)+0x230
+V  [libjvm.so+0xe1acfb]  VMError::report_and_die(Thread*, char const*, int, unsigned long, VMErrorType, char const*, __va_list_tag*)+0x2b
+V  [libjvm.so+0x6ac288]  report_vm_out_of_memory(char const*, int, unsigned long, VMErrorType, char const*, ...)+0xd8
+V  [libjvm.so+0xe455e5]  AbstractWorkGang::add_workers(unsigned int, bool)+0x1e5
+V  [libjvm.so+0x785cf3]  G1CollectedHeap::G1CollectedHeap(G1CollectorPolicy*)+0x5d3
+V  [libjvm.so+0x7789a6]  G1Arguments::create_heap()+0x66
+V  [libjvm.so+0xdd64d1]  Universe::initialize_heap()+0x31
+V  [libjvm.so+0xdd6797]  universe_init()+0x47
+V  [libjvm.so+0x873847]  init_globals()+0x57
+V  [libjvm.so+0xdac3b9]  Threads::create_vm(JavaVMInitArgs*, bool*)+0x309
+V  [libjvm.so+0x9210d6]  JNI_CreateJavaVM+0x56
+C  [libjli.so+0x486a]  JavaMain+0x8a
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x0000560ffef332e0, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+
+[error occurred during error reporting (printing all threads), id 0xb, SIGSEGV (0xb) at pc=0x00007fd8bef7170b]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+
+[error occurred during error reporting (printing compressed oops mode), id 0xb, SIGSEGV (0xb) at pc=0x00007fd8bef9d053]
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (2 events):
+Event: 0.006 Protecting memory [0x00007fd8c03e4000,0x00007fd8c03e8000] with protection modes 0
+Event: 0.008 Loaded shared library /usr/lib/jvm/zulu-11-amd64/lib/libzip.so
+
+
+Dynamic libraries:
+560ffe800000-560ffe801000 r-xp 00000000 00:10a 6821                      /usr/lib/jvm/zulu-11-amd64/bin/java
+560ffea01000-560ffea02000 r--p 00001000 00:10a 6821                      /usr/lib/jvm/zulu-11-amd64/bin/java
+560ffea02000-560ffea03000 rw-p 00002000 00:10a 6821                      /usr/lib/jvm/zulu-11-amd64/bin/java
+560ffef2f000-560ffef50000 rw-p 00000000 00:00 0                          [heap]
+7fd8a0671000-7fd8a08e1000 rwxp 00000000 00:00 0 
+7fd8a08e1000-7fd8a0c01000 ---p 00000000 00:00 0 
+7fd8a0c01000-7fd8a0e71000 rwxp 00000000 00:00 0 
+7fd8a0e71000-7fd8a8139000 ---p 00000000 00:00 0 
+7fd8a8139000-7fd8a83a9000 rwxp 00000000 00:00 0 
+7fd8a83a9000-7fd8af671000 ---p 00000000 00:00 0 
+7fd8af671000-7fd8b8000000 r--s 00000000 00:10a 7486                      /usr/lib/jvm/zulu-11-amd64/lib/modules
+7fd8b8000000-7fd8b8039000 rw-p 00000000 00:00 0 
+7fd8b8039000-7fd8bc000000 ---p 00000000 00:00 0 
+7fd8bc50d000-7fd8bc897000 rw-p 00000000 00:00 0 
+7fd8bc897000-7fd8bc898000 ---p 00000000 00:00 0 
+7fd8bc898000-7fd8bc99e000 rw-p 00000000 00:00 0 
+7fd8bc99e000-7fd8bca84000 ---p 00000000 00:00 0 
+7fd8bca84000-7fd8bca89000 rw-p 00000000 00:00 0 
+7fd8bca89000-7fd8bcb6f000 ---p 00000000 00:00 0 
+7fd8bcb6f000-7fd8bcb76000 r-xp 00000000 00:10a 7485                      /usr/lib/jvm/zulu-11-amd64/lib/libzip.so
+7fd8bcb76000-7fd8bcd76000 ---p 00007000 00:10a 7485                      /usr/lib/jvm/zulu-11-amd64/lib/libzip.so
+7fd8bcd76000-7fd8bcd77000 r--p 00007000 00:10a 7485                      /usr/lib/jvm/zulu-11-amd64/lib/libzip.so
+7fd8bcd77000-7fd8bcd78000 rw-p 00000000 00:00 0 
+7fd8bcd78000-7fd8bcd83000 r-xp 00000000 00:10a 4452                      /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7fd8bcd83000-7fd8bcf82000 ---p 0000b000 00:10a 4452                      /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7fd8bcf82000-7fd8bcf83000 r--p 0000a000 00:10a 4452                      /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7fd8bcf83000-7fd8bcf84000 rw-p 0000b000 00:10a 4452                      /lib/x86_64-linux-gnu/libnss_files-2.27.so
+7fd8bcf84000-7fd8bcf8a000 rw-p 00000000 00:00 0 
+7fd8bcf8a000-7fd8bcfa1000 r-xp 00000000 00:10a 4446                      /lib/x86_64-linux-gnu/libnsl-2.27.so
+7fd8bcfa1000-7fd8bd1a0000 ---p 00017000 00:10a 4446                      /lib/x86_64-linux-gnu/libnsl-2.27.so
+7fd8bd1a0000-7fd8bd1a1000 r--p 00016000 00:10a 4446                      /lib/x86_64-linux-gnu/libnsl-2.27.so
+7fd8bd1a1000-7fd8bd1a2000 rw-p 00017000 00:10a 4446                      /lib/x86_64-linux-gnu/libnsl-2.27.so
+7fd8bd1a2000-7fd8bd1a4000 rw-p 00000000 00:00 0 
+7fd8bd1a4000-7fd8bd1af000 r-xp 00000000 00:10a 4456                      /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7fd8bd1af000-7fd8bd3ae000 ---p 0000b000 00:10a 4456                      /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7fd8bd3ae000-7fd8bd3af000 r--p 0000a000 00:10a 4456                      /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7fd8bd3af000-7fd8bd3b0000 rw-p 0000b000 00:10a 4456                      /lib/x86_64-linux-gnu/libnss_nis-2.27.so
+7fd8bd3b0000-7fd8bd3b8000 r-xp 00000000 00:10a 4448                      /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7fd8bd3b8000-7fd8bd5b8000 ---p 00008000 00:10a 4448                      /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7fd8bd5b8000-7fd8bd5b9000 r--p 00008000 00:10a 4448                      /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7fd8bd5b9000-7fd8bd5ba000 rw-p 00009000 00:10a 4448                      /lib/x86_64-linux-gnu/libnss_compat-2.27.so
+7fd8bd5ba000-7fd8bd5d4000 r-xp 00000000 00:10a 7467                      /usr/lib/jvm/zulu-11-amd64/lib/libjimage.so
+7fd8bd5d4000-7fd8bd7d3000 ---p 0001a000 00:10a 7467                      /usr/lib/jvm/zulu-11-amd64/lib/libjimage.so
+7fd8bd7d3000-7fd8bd7d5000 r--p 00019000 00:10a 7467                      /usr/lib/jvm/zulu-11-amd64/lib/libjimage.so
+7fd8bd7d5000-7fd8bd7d6000 rw-p 0001b000 00:10a 7467                      /usr/lib/jvm/zulu-11-amd64/lib/libjimage.so
+7fd8bd7d6000-7fd8bd7e7000 rw-p 00000000 00:00 0 
+7fd8bd7e7000-7fd8bd810000 r-xp 00000000 00:10a 7463                      /usr/lib/jvm/zulu-11-amd64/lib/libjava.so
+7fd8bd810000-7fd8bda10000 ---p 00029000 00:10a 7463                      /usr/lib/jvm/zulu-11-amd64/lib/libjava.so
+7fd8bda10000-7fd8bda11000 r--p 00029000 00:10a 7463                      /usr/lib/jvm/zulu-11-amd64/lib/libjava.so
+7fd8bda11000-7fd8bda12000 rw-p 0002a000 00:10a 7463                      /usr/lib/jvm/zulu-11-amd64/lib/libjava.so
+7fd8bda12000-7fd8bda13000 rw-p 00000000 00:00 0 
+7fd8bda13000-7fd8bda20000 r-xp 00000000 00:10a 7484                      /usr/lib/jvm/zulu-11-amd64/lib/libverify.so
+7fd8bda20000-7fd8bdc1f000 ---p 0000d000 00:10a 7484                      /usr/lib/jvm/zulu-11-amd64/lib/libverify.so
+7fd8bdc1f000-7fd8bdc21000 rw-p 0000c000 00:10a 7484                      /usr/lib/jvm/zulu-11-amd64/lib/libverify.so
+7fd8bdc21000-7fd8bdc22000 rw-p 00000000 00:00 0 
+7fd8bdc22000-7fd8bdc29000 r-xp 00000000 00:10a 4478                      /lib/x86_64-linux-gnu/librt-2.27.so
+7fd8bdc29000-7fd8bde28000 ---p 00007000 00:10a 4478                      /lib/x86_64-linux-gnu/librt-2.27.so
+7fd8bde28000-7fd8bde29000 r--p 00006000 00:10a 4478                      /lib/x86_64-linux-gnu/librt-2.27.so
+7fd8bde29000-7fd8bde2a000 rw-p 00007000 00:10a 4478                      /lib/x86_64-linux-gnu/librt-2.27.so
+7fd8bde2a000-7fd8bdfc7000 r-xp 00000000 00:10a 4431                      /lib/x86_64-linux-gnu/libm-2.27.so
+7fd8bdfc7000-7fd8be1c6000 ---p 0019d000 00:10a 4431                      /lib/x86_64-linux-gnu/libm-2.27.so
+7fd8be1c6000-7fd8be1c7000 r--p 0019c000 00:10a 4431                      /lib/x86_64-linux-gnu/libm-2.27.so
+7fd8be1c7000-7fd8be1c8000 rw-p 0019d000 00:10a 4431                      /lib/x86_64-linux-gnu/libm-2.27.so
+7fd8be1c8000-7fd8bf30c000 r-xp 00000000 00:10a 7497                      /usr/lib/jvm/zulu-11-amd64/lib/server/libjvm.so
+7fd8bf30c000-7fd8bf50b000 ---p 01144000 00:10a 7497                      /usr/lib/jvm/zulu-11-amd64/lib/server/libjvm.so
+7fd8bf50b000-7fd8bf5e0000 r--p 01143000 00:10a 7497                      /usr/lib/jvm/zulu-11-amd64/lib/server/libjvm.so
+7fd8bf5e0000-7fd8bf61a000 rw-p 01218000 00:10a 7497                      /usr/lib/jvm/zulu-11-amd64/lib/server/libjvm.so
+7fd8bf61a000-7fd8bf685000 rw-p 00000000 00:00 0 
+7fd8bf685000-7fd8bf86c000 r-xp 00000000 00:10a 4383                      /lib/x86_64-linux-gnu/libc-2.27.so
+7fd8bf86c000-7fd8bfa6c000 ---p 001e7000 00:10a 4383                      /lib/x86_64-linux-gnu/libc-2.27.so
+7fd8bfa6c000-7fd8bfa70000 r--p 001e7000 00:10a 4383                      /lib/x86_64-linux-gnu/libc-2.27.so
+7fd8bfa70000-7fd8bfa72000 rw-p 001eb000 00:10a 4383                      /lib/x86_64-linux-gnu/libc-2.27.so
+7fd8bfa72000-7fd8bfa76000 rw-p 00000000 00:00 0 
+7fd8bfa76000-7fd8bfa79000 r-xp 00000000 00:10a 4400                      /lib/x86_64-linux-gnu/libdl-2.27.so
+7fd8bfa79000-7fd8bfc78000 ---p 00003000 00:10a 4400                      /lib/x86_64-linux-gnu/libdl-2.27.so
+7fd8bfc78000-7fd8bfc79000 r--p 00002000 00:10a 4400                      /lib/x86_64-linux-gnu/libdl-2.27.so
+7fd8bfc79000-7fd8bfc7a000 rw-p 00003000 00:10a 4400                      /lib/x86_64-linux-gnu/libdl-2.27.so
+7fd8bfc7a000-7fd8bfc89000 r-xp 00000000 00:10a 7446                      /usr/lib/jvm/zulu-11-amd64/lib/jli/libjli.so
+7fd8bfc89000-7fd8bfe89000 ---p 0000f000 00:10a 7446                      /usr/lib/jvm/zulu-11-amd64/lib/jli/libjli.so
+7fd8bfe89000-7fd8bfe8a000 r--p 0000f000 00:10a 7446                      /usr/lib/jvm/zulu-11-amd64/lib/jli/libjli.so
+7fd8bfe8a000-7fd8bfe8b000 rw-p 00010000 00:10a 7446                      /usr/lib/jvm/zulu-11-amd64/lib/jli/libjli.so
+7fd8bfe8b000-7fd8bfea5000 r-xp 00000000 00:10a 4472                      /lib/x86_64-linux-gnu/libpthread-2.27.so
+7fd8bfea5000-7fd8c00a4000 ---p 0001a000 00:10a 4472                      /lib/x86_64-linux-gnu/libpthread-2.27.so
+7fd8c00a4000-7fd8c00a5000 r--p 00019000 00:10a 4472                      /lib/x86_64-linux-gnu/libpthread-2.27.so
+7fd8c00a5000-7fd8c00a6000 rw-p 0001a000 00:10a 4472                      /lib/x86_64-linux-gnu/libpthread-2.27.so
+7fd8c00a6000-7fd8c00aa000 rw-p 00000000 00:00 0 
+7fd8c00aa000-7fd8c00c6000 r-xp 00000000 00:10a 4508                      /lib/x86_64-linux-gnu/libz.so.1.2.11
+7fd8c00c6000-7fd8c02c5000 ---p 0001c000 00:10a 4508                      /lib/x86_64-linux-gnu/libz.so.1.2.11
+7fd8c02c5000-7fd8c02c6000 r--p 0001b000 00:10a 4508                      /lib/x86_64-linux-gnu/libz.so.1.2.11
+7fd8c02c6000-7fd8c02c7000 rw-p 0001c000 00:10a 4508                      /lib/x86_64-linux-gnu/libz.so.1.2.11
+7fd8c02c7000-7fd8c02f0000 r-xp 00000000 00:10a 4357                      /lib/x86_64-linux-gnu/ld-2.27.so
+7fd8c03d0000-7fd8c03d5000 rw-p 00000000 00:00 0 
+7fd8c03d5000-7fd8c03dc000 ---p 00000000 00:00 0 
+7fd8c03dc000-7fd8c03e4000 rw-s 00000000 00:b7 14446                      /tmp/hsperfdata_codio/7316
+7fd8c03e4000-7fd8c03e8000 ---p 00000000 00:00 0 
+7fd8c03e8000-7fd8c04e7000 rw-p 00000000 00:00 0 
+7fd8c04ec000-7fd8c04ed000 ---p 00000000 00:00 0 
+7fd8c04ed000-7fd8c04ee000 r--p 00000000 00:00 0 
+7fd8c04ee000-7fd8c04f0000 rw-p 00000000 00:00 0 
+7fd8c04f0000-7fd8c04f1000 r--p 00029000 00:10a 4357                      /lib/x86_64-linux-gnu/ld-2.27.so
+7fd8c04f1000-7fd8c04f2000 rw-p 0002a000 00:10a 4357                      /lib/x86_64-linux-gnu/ld-2.27.so
+7fd8c04f2000-7fd8c04f3000 rw-p 00000000 00:00 0 
+7fffa9d88000-7fffa9da9000 rw-p 00000000 00:00 0                          [stack]
+7fffa9dca000-7fffa9dce000 r--p 00000000 00:00 0                          [vvar]
+7fffa9dce000-7fffa9dd0000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]
+
+
+VM Arguments:
+jvm_args: -Dclassworlds.conf=/usr/share/maven/bin/m2.conf -Dmaven.home=/usr/share/maven -Dlibrary.jansi.path=/usr/share/maven/lib/jansi-native -Dmaven.multiModuleProjectDirectory= 
+java_command: org.codehaus.plexus.classworlds.launcher.Launcher test
+java_class_path (initial): /usr/share/maven/boot/plexus-classworlds-2.x.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 3                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 4                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 255852544                                 {product} {ergonomic}
+   size_t MaxHeapSize                              = 4074766336                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5830732                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122913754                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122913754                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+     bool UseCompressedClassPointers               = true                                 {lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                                 {lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+PATH=/opt/gradle/gradle-5.6.2/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+SHELL=/bin/bash
+LANG=en_US.UTF-8
+TZ=:/etc/localtime
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0xe1ad40], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0xe1ad40], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0xe1ad40], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0xc0cf30], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0xc0cf30], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0xe1ad40], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR2: [libjvm.so+0xc0cdd0], sa_mask[0]=00000000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGINT: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGTERM: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGQUIT: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+
+
+---------------  S Y S T E M  ---------------
+
+OS:DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=18.04
+DISTRIB_CODENAME=bionic
+DISTRIB_DESCRIPTION="Ubuntu 18.04.6 LTS"
+uname:Linux 5.15.0-1031-aws #35-Ubuntu SMP Fri Feb 10 02:07:18 UTC 2023 x86_64
+OS uptime: 3 days 7:10 hours
+libc:glibc 2.27 NPTL 2.27 
+rlimit (soft/hard): STACK 8192k/infinity , CORE 0k/0k , NPROC 62089/62089 , NOFILE 1048576/1048576 , AS infinity/infinity , CPU infinity/infinity , DATA infinity/infinity , FSIZE infinity/infinity , MEMLOCK 65536k/65536k
+load average:0.22 0.46 0.47
+
+/proc/meminfo:
+MemTotal:         786432 kB
+MemFree:            2456 kB
+MemAvailable:      82924 kB
+Buffers:               0 kB
+Cached:            80468 kB
+SwapCached:            0 kB
+Active:            57876 kB
+Inactive:         698392 kB
+Active(anon):      21004 kB
+Inactive(anon):   654828 kB
+Active(file):      36872 kB
+Inactive(file):    43564 kB
+Unevictable:           0 kB
+Mlocked:           28180 kB
+SwapTotal:             0 kB
+SwapFree:              0 kB
+Dirty:                 0 kB
+Writeback:             0 kB
+AnonPages:        675816 kB
+Mapped:                0 kB
+Shmem:                16 kB
+KReclaimable:     604680 kB
+Slab:                  0 kB
+SReclaimable:          0 kB
+SUnreclaim:            0 kB
+KernelStack:       74196 kB
+PageTables:       116940 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:    24732404 kB
+Committed_AS:   14334972 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:      122812 kB
+VmallocChunk:          0 kB
+Percpu:             6784 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:         0 kB
+ShmemHugePages:        0 kB
+ShmemPmdMapped:        0 kB
+FileHugePages:         0 kB
+FilePmdMapped:         0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+Hugetlb:               0 kB
+DirectMap4k:     2881448 kB
+DirectMap2M:    13414400 kB
+DirectMap1G:           0 kB
+
+/sys/kernel/mm/transparent_hugepage/enabled:
+always [madvise] never
+
+/sys/kernel/mm/transparent_hugepage/defrag (defrag/compaction efforts parameter):
+always defer defer+madvise [madvise] never
+
+
+/proc/sys/kernel/threads-max (system-wide limit on the number of threads):
+124178
+
+
+/proc/sys/vm/max_map_count (maximum number of memory map areas a process may have):
+65530
+
+
+/proc/sys/kernel/pid_max (system-wide limit on number of process identifiers):
+4194304
+
+
+
+KVM virtualization detected
+Steal ticks since vm start: 0
+Steal ticks percentage since vm start:  0.000
+
+CPU:total 4 (initial active 4) (2 cores per cpu, 2 threads per core) family 6 model 85 stepping 4, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, rtm, 3dnowpref, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2, adx, fma
+CPU Model and flags from /proc/cpuinfo:
+model name	: Intel(R) Xeon(R) Platinum 8175M CPU @ 2.50GHz
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss ht syscall nx pdpe1gb rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid aperfmperf tsc_known_freq pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single pti fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves ida arat pku ospke
+
+Memory: 4k page, physical 15910384k(618352k free), swap 16777212k(15682556k free)
+
+vm_info: OpenJDK 64-Bit Server VM (11.0.8+10-LTS) for linux-amd64 JRE (Zulu11.41+23-CA) (11.0.8+10-LTS), built on Jul 10 2020 16:48:26 by "zulu_re" with gcc 4.9.2 20150212 (Red Hat 4.9.2-6)
+
+END.
