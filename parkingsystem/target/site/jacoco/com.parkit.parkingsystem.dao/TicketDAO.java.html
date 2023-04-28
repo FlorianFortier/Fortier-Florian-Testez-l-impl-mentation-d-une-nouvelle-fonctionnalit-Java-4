@@ -86,5 +86,27 @@ import java.sql.Timestamp;
         }
 <span class="nc" id="L87">        return false;</span>
     }
+    public Integer getNbTicket() {
+<span class="fc" id="L90">    Integer count = 0;</span>
+<span class="fc" id="L91">    Connection con = null;</span>
+
+    try {
+<span class="fc" id="L94">        con = dataBaseConfig.getConnection();</span>
+<span class="fc" id="L95">        PreparedStatement ps = con.prepareStatement(DBConstants.GET_TICKET);</span>
+<span class="nc" id="L96">        ResultSet rs = ps.executeQuery();</span>
+        
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        while (rs.next()) {</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">            if (rs.getString(&quot;vehicle_type&quot;).equals(&quot;CAR&quot;)) {</span>
+<span class="nc" id="L100">                count++;</span>
+            }
+        }
+
+<span class="pc" id="L104">    } catch (Exception ex) {</span>
+<span class="fc" id="L105">        logger.error(&quot;Error getting ticket count&quot;, ex);</span>
+    } finally {
+<span class="fc" id="L107">        dataBaseConfig.closeConnection(con);</span>
+    }
+<span class="fc" id="L109">    return count;</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
