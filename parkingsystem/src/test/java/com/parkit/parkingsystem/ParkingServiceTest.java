@@ -54,15 +54,18 @@ public class ParkingServiceTest {
   @Test
   public void testProcessExitingVehicle() throws Exception {
     //Given
-    when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(true);
-    when(ticketDAO.getTicket(anyString())).thenReturn(ticket);
     when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn("ABCDEF");
+    when(ticketDAO.updateTicket(any(Ticket.class))).thenReturn(true);
+    when(ticketDAO.getNbTicket()).thenReturn(1);
+    when(ticketDAO.getTicket(anyString())).thenReturn(ticket);
+
 
     // When
     parkingService.processExitingVehicle();
     // Then
     verify(ticketDAO, times(1)).getNbTicket();
     verify(ticketDAO, times(1)).updateTicket(any(Ticket.class));
+    verify(ticketDAO, times(1)).getTicket(anyString());
 
   }
   @Test
