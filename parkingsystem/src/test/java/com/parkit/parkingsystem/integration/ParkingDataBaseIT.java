@@ -4,6 +4,8 @@ import com.parkit.parkingsystem.dao.ParkingSpotDAO;
 import com.parkit.parkingsystem.dao.TicketDAO;
 import com.parkit.parkingsystem.integration.config.DataBaseTestConfig;
 import com.parkit.parkingsystem.integration.service.DataBasePrepareService;
+import com.parkit.parkingsystem.model.Ticket;
+import com.parkit.parkingsystem.service.FareCalculatorService;
 import com.parkit.parkingsystem.service.ParkingService;
 import com.parkit.parkingsystem.util.InputReaderUtil;
 import org.junit.jupiter.api.AfterAll;
@@ -13,16 +15,28 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.Date;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ParkingDataBaseIT {
 
+    private static final String REG_NUMBER = null;
     private static DataBaseTestConfig dataBaseTestConfig = new DataBaseTestConfig();
     private static ParkingSpotDAO parkingSpotDAO;
     private static TicketDAO ticketDAO;
     private static DataBasePrepareService dataBasePrepareService;
 
+    private static FareCalculatorService fareCalculatorService;
     @Mock
     private static InputReaderUtil inputReaderUtil;
 
@@ -48,18 +62,52 @@ public class ParkingDataBaseIT {
     }
 
     @Test
-    public void testParkingACar(){
-        ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
-        parkingService.processIncomingVehicle();
-        //TODO: check that a ticket is actualy saved in DB and Parking table is updated with availability
-    }
-
+    public void testParkingACar() throws SQLException, ClassNotFoundException {
+            // GIVEN
+            ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
+            // WHEN
+            parkingService.processIncomingVehicle();
+            // THEN
+            try (Connection connection = dataBaseTestConfig.getConnection();
+                 PreparedStatement ps = connection.prepareStatement("select * from ticket where vehicle_reg_number=?")) {
+                ps.setString(1, REG_NUMBER);
+                try (ResultSet rs = ps.executeQuery()) {
+                    assertTrue(rs   .next());
+                    assertEquals(rs.getInt("PRICE"), 0);
+                    assertEquals(rs.getInt("DISCOUNT"), 0);
+                    assertEquals(rs.getString("VEHICLE_REG_NUMBER"), REG_NUMBER);
+                    assertEquals(rs.getInt("PARKING_NUMBER"), 1);
+                    assertEquals(rs.getTimestamp("IN_TIME"), new Date());
+                    assertNull(rs.getTimestamp("OUT_TIME"));
+                }
+            }
+            try (Connection connection = dataBaseTestConfig.getConnection();
+                 PreparedStatement ps = connection.prepareStatement("select available from parking where parking_number=?")) {
+                ps.setInt(1, 1);
+                try (ResultSet rs = ps.executeQuery()) {
+                    assertTrue(rs.next());
+                    assertEquals(rs.getInt("available"), 0);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
     @Test
-    public void testParkingLotExit(){
+    public void testParkingLotExit() throws SQLException, ClassNotFoundException {
         testParkingACar();
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processExitingVehicle();
-        //TODO: check that the fare generated and out time are populated correctly in the database
+        Ticket ticket = ticketDAO.getTicket("ABCDEF");
+        LocalDateTime outTime = LocalDateTime.now();
+
+        // when
+        double fare = fareCalculatorService.calculateFare(ticket,false);
+
+        // then
+        assertTrue(fare > 0);
+        assertEquals(outTime.minusHours(1), ticket.getOutTime());
     }
 
 }

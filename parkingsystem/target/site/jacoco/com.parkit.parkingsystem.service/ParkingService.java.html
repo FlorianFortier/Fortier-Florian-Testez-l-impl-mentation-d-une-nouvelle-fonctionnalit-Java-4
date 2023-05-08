@@ -105,15 +105,15 @@ public class ParkingService {
 <span class="fc" id="L105">            Date outTime = new Date();</span>
 <span class="fc" id="L106">            ticket.setOutTime(outTime);</span>
 <span class="fc bfc" id="L107" title="All 2 branches covered.">            if(ticketDAO.updateTicket(ticket)) {</span>
-<span class="pc bpc" id="L108" title="1 of 2 branches missed.">                if (ticketDAO.getNbTicket() &gt;= 1) {</span>
-<span class="nc" id="L109">                    ParkingSpot parkingSpot = ticket.getParkingSpot();</span>
-<span class="nc" id="L110">                parkingSpot.setAvailable(true);</span>
-<span class="nc" id="L111">                parkingSpotDAO.updateParking(parkingSpot);</span>
-<span class="nc" id="L112">                fareCalculatorService.calculateFare(ticket, true);</span>
+<span class="fc bfc" id="L108" title="All 2 branches covered.">                if (ticketDAO.getNbTicket() &gt;= 1) {</span>
+<span class="fc" id="L109">                    ParkingSpot parkingSpot = ticket.getParkingSpot();</span>
+<span class="fc" id="L110">                parkingSpot.setAvailable(true);</span>
+<span class="fc" id="L111">                parkingSpotDAO.updateParking(parkingSpot);</span>
+<span class="fc" id="L112">                fareCalculatorService.calculateFare(ticket, true);</span>
 
-<span class="nc" id="L114">                System.out.println(&quot;Please pay the parking fare:&quot; + ticket.getPrice());</span>
-<span class="nc" id="L115">                System.out.println(&quot;Recorded out-time for vehicle number:&quot; + ticket.getVehicleRegNumber() + &quot; is:&quot; + outTime);</span>
-<span class="nc" id="L116">                }</span>
+<span class="fc" id="L114">                System.out.println(&quot;Please pay the parking fare:&quot; + ticket.getPrice());</span>
+<span class="fc" id="L115">                System.out.println(&quot;Recorded out-time for vehicle number:&quot; + ticket.getVehicleRegNumber() + &quot; is:&quot; + outTime);</span>
+<span class="fc" id="L116">                }</span>
             }else{
 <span class="fc" id="L118">                System.out.println(&quot;Unable to update ticket information. Error occurred&quot;);</span>
             }
