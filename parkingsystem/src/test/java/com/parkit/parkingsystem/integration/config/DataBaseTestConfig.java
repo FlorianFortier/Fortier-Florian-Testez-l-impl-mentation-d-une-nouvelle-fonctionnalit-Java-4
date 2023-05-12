@@ -12,9 +12,9 @@ public class DataBaseTestConfig extends DataBaseConfig {
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         logger.info("Create DB connection");
-        Class.forName("com.mysql.cj.jdbc.Driver");
+        Class.forName("org.mariadb.jdbc.Driver");
         return DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/test?serverTimezone=UTC&enabledTLSProtocols=TLSv1.2","root","codio");
+                "jdbc:mariadb://localhost:3306/test?serverTimezone=UTC&enabledTLSProtocols=TLSv1.2","root","root");
     }
 
     public void closeConnection(Connection con){

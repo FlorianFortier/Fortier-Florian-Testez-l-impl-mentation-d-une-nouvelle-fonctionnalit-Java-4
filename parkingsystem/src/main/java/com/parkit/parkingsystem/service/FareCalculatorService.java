@@ -37,7 +37,7 @@ public class FareCalculatorService {
     if (discount) {
       ticket.setPrice(ticket.getPrice() * 0.95);
     }
-     return durationInHours;
+     return ticket.getPrice();
  }
   public void calculateFare(Ticket ticket) {
     calculateFare(ticket, false);
