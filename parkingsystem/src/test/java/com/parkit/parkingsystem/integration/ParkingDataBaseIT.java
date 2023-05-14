@@ -49,8 +49,8 @@ public class ParkingDataBaseIT {
         dataBasePrepareService = new DataBasePrepareService();
         ticket = new Ticket();
         fareCalculatorService = new FareCalculatorService();
-
         outTime = LocalDateTime.now(ZoneId.systemDefault()).plus(2, ChronoUnit.HOURS);
+
     }
 
     @BeforeEach
@@ -64,13 +64,16 @@ public class ParkingDataBaseIT {
     @Test
     public void testParkingACar() {
         // WHEN
+
         int slotBefore = parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR);
         // ACT
         parkingService.processIncomingVehicle();
 
         Ticket ticket = ticketDAO.getTicket(REG_NUMBER);
+
         ParkingSpot parkingSpot = ticket.getParkingSpot();
         int SlotAfter = parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR);
+
 
         // ASSERT
         assertNotNull(ticket.getInTime());
@@ -82,12 +85,18 @@ public class ParkingDataBaseIT {
     public void testParkingLotExit() {
         // GIVEN
         parkingService.processIncomingVehicle();
+
         ticket = ticketDAO.getTicket(REG_NUMBER);
+
         ticket.setOutTime(Timestamp.valueOf(outTime));
+
         ticketDAO.updateTicket(ticket);
 
         // WHEN
 
+        ParkingSpot parkingSpot = ticket.getParkingSpot();
+        int slotBefore = parkingSpot.getId();
+        int SlotAfter = parkingSpotDAO.getNextAvailableSlot(ParkingType.CAR);
 
         ticket = ticketDAO.getTicket(REG_NUMBER);
 
@@ -96,6 +105,8 @@ public class ParkingDataBaseIT {
 
         parkingService.processExitingVehicle();
 
+        assertEquals(parkingSpot.getId(),slotBefore);
+        assertNotEquals(SlotAfter,slotBefore);
         assertEquals(1, ticket.getParkingSpot().getId());
         assertNotNull(ticket.getOutTime());
         assertNotEquals(ticket.getPrice(), 0);
@@ -105,12 +116,17 @@ public class ParkingDataBaseIT {
         // GIVEN
         ParkingService parkingService = new ParkingService(inputReaderUtil, parkingSpotDAO, ticketDAO);
         parkingService.processIncomingVehicle();
+        ticket = ticketDAO.getTicket(REG_NUMBER);
+
         // WHEN
         ParkingSpot newParkingSpot = parkingService.getNextParkingNumberIfAvailable();
         boolean isParkingSpotAvailable = newParkingSpot != null;
         Ticket updatedTicket = ticketDAO.getTicket(REG_NUMBER);
         updatedTicket.setOutTime(Timestamp.valueOf(outTime));
         updatedTicket.setPrice(0);
+        updatedTicket.setInTime(Timestamp.valueOf(outTime.minus(1, ChronoUnit.HOURS)));
+        updatedTicket.setParkingSpot(newParkingSpot);
+
         ticketDAO.updateTicket(updatedTicket);
 
         parkingService.processExitingVehicle();

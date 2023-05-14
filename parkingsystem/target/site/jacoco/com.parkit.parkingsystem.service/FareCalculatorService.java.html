@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="fr"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FareCalculatorService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">parking-system</a> &gt; <a href="index.source.html" class="el_package">com.parkit.parkingsystem.service</a> &gt; <span class="el_source">FareCalculatorService.java</span></div><h1>FareCalculatorService.java</h1><pre class="source lang-java linenums">package com.parkit.parkingsystem.service;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FareCalculatorService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">parking-system</a> &gt; <a href="index.source.html" class="el_package">com.parkit.parkingsystem.service</a> &gt; <span class="el_source">FareCalculatorService.java</span></div><h1>FareCalculatorService.java</h1><pre class="source lang-java linenums">package com.parkit.parkingsystem.service;
 
 import com.parkit.parkingsystem.constants.Fare;
 import com.parkit.parkingsystem.model.Ticket;
@@ -6,7 +6,7 @@ import com.parkit.parkingsystem.model.Ticket;
 
 <span class="fc" id="L7">public class FareCalculatorService {</span>
 
- public void calculateFare(Ticket ticket, boolean discount) {
+ public double calculateFare(Ticket ticket, boolean discount) {
 <span class="pc bpc" id="L10" title="1 of 4 branches missed.">    if (ticket.getOutTime() == null || ticket.getOutTime().before(ticket.getInTime())) {</span>
 <span class="fc" id="L11">        throw new IllegalArgumentException(&quot;Incorrect Out Time: &quot; + ticket.getOutTime());</span>
     }
@@ -37,10 +37,11 @@ import com.parkit.parkingsystem.model.Ticket;
 <span class="fc bfc" id="L37" title="All 2 branches covered.">    if (discount) {</span>
 <span class="fc" id="L38">      ticket.setPrice(ticket.getPrice() * 0.95);</span>
     }
-<span class="fc" id="L40">  }</span>
+<span class="fc" id="L40">     return ticket.getPrice();</span>
+ }
   public void calculateFare(Ticket ticket) {
-<span class="fc" id="L42">    calculateFare(ticket, false);</span>
+<span class="fc" id="L43">    calculateFare(ticket, false);</span>
     
-<span class="fc" id="L44">  }</span>
+<span class="fc" id="L45">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
