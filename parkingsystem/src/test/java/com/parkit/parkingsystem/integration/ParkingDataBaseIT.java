@@ -17,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.sql.*;
@@ -43,7 +44,7 @@ public class ParkingDataBaseIT {
     private static LocalDateTime outTime;
 
     @BeforeAll
-    private static void setUp() throws Exception{
+    private static void setUp() throws Exception {
         parkingSpotDAO = new ParkingSpotDAO();
         ticketDAO = new TicketDAO();
         dataBasePrepareService = new DataBasePrepareService();
@@ -54,7 +55,7 @@ public class ParkingDataBaseIT {
     }
 
     @BeforeEach
-   public void setUpPerTest() throws Exception {
+    public void setUpPerTest() throws Exception {
         when(inputReaderUtil.readSelection()).thenReturn(1);
         when(inputReaderUtil.readVehicleRegistrationNumber()).thenReturn(REG_NUMBER);
         dataBasePrepareService.clearDataBaseEntries();
@@ -78,18 +79,17 @@ public class ParkingDataBaseIT {
         // ASSERT
         assertNotNull(ticket.getInTime());
         assertNull(ticket.getOutTime());
-        assertEquals(parkingSpot.getId(),slotBefore);
-        assertNotEquals(SlotAfter,slotBefore);
-}
+        assertEquals(parkingSpot.getId(), slotBefore);
+        assertNotEquals(SlotAfter, slotBefore);
+    }
+
     @Test
     public void testParkingLotExit() {
         // GIVEN
         parkingService.processIncomingVehicle();
 
         ticket = ticketDAO.getTicket(REG_NUMBER);
-
         ticket.setOutTime(Timestamp.valueOf(outTime));
-
         ticketDAO.updateTicket(ticket);
 
         // WHEN
@@ -105,12 +105,13 @@ public class ParkingDataBaseIT {
 
         parkingService.processExitingVehicle();
 
-        assertEquals(parkingSpot.getId(),slotBefore);
-        assertNotEquals(SlotAfter,slotBefore);
+        assertEquals(parkingSpot.getId(), slotBefore);
+        assertNotEquals(SlotAfter, slotBefore);
         assertEquals(1, ticket.getParkingSpot().getId());
         assertNotNull(ticket.getOutTime());
         assertNotEquals(ticket.getPrice(), 0);
     }
+
     @Test
     public void testParkingLotExitRecurringUser() throws Exception, SQLException {
         // GIVEN
